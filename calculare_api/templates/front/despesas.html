@@ -1,0 +1,226 @@
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description"
+            content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+        <title>Calculare</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+            integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!-- Parallax -->
+        <script src="https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js"></script>
+        <!-- semantic UI -->
+        <link rel="stylesheet" type='text/css'
+            href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+        <!--Chart js-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+            integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"
+            integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+
+        <!-- using online links -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+            integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+            integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+        <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+
+        <!-- using local links -->
+        <!-- <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+        <link rel="stylesheet" href="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"> -->
+
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" href="{% static 'css/sidebar-theme.css' %}">
+        <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+
+        <script type="text/javascript" src="{% static 'js/jquery.mask.min.js' %}"></script>
+
+        {% load pwa %}
+
+        {% progressive_web_app_meta %}
+    </head>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+        .etapa {
+            font-size: 12px;
+            margin-top: 2%;
+            margin-right: 4%;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        #voltar {
+            position: absolute;
+            left: 7%;
+            font-size: 25px;
+            color: black;
+            top: 5%;
+        }
+
+        #cadastrar {
+            background-color: #303F9F;
+            color: white;
+        }
+
+        #cadastrar:hover {
+            background-color: grey;
+        }
+    </style>
+
+<body>
+    <a href="{% url 'home' %}" id="voltar"><i class="fas fa-arrow-left"></i></a>
+
+    <div class="row" style="padding-left: 10%; padding-right: 10%; padding-top: 20%;">
+        <div class="col-md-12">
+            <h4>Cadastrar despesa <span class="float-right etapa">Etapa 1 de 2</span></h4>
+            <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600;">Meu negócio</h6>
+            <img src="{% static 'img/progress-bar-1.png' %}" style="width: 100%; padding-top: 5%; padding-bottom: 10%;"
+                alt="">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <span style="font-family: 'Poppins', sans-serif; font-weight: 600;">Selecione todas as outras
+                        despesas que seu negócio possui.</span>
+                    <div style="padding-top: 5%;">
+                        <div class="border" style="border-radius: 10px;">
+                            <div id="div_id_Combustivel" class="form-check"
+                                style="margin-left: 20px; margin-top: 7px; margin-bottom: 7px;"> <input type="checkbox"
+                                    name="Combustivel" class="checkboxinput form-check-input" id="id_Combustivel">
+                                <label for="id_Combustivel" class="form-check-label"
+                                    style="font-family: 'Montserrat', sans-serif; font-weight: 600; color: #494949; margin-left: 10px;">
+                                    Combustível </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="border" style="border-radius: 10px;">
+                        <div id="div_id_Divulgacao" class="form-check"
+                            style="margin-left: 20px; margin-top: 7px; margin-bottom: 7px;"> <input type="checkbox"
+                                name="Divulgacao" class="checkboxinput form-check-input" id="id_Divulgacao">
+                            <label for="id_Divulgacao" class="form-check-label"
+                                style="font-family: 'Montserrat', sans-serif; font-weight: 600; color: #494949; margin-left: 10px;">
+                                Divulgação </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="border" style="border-radius: 10px;">
+                        <div id="div_id_Taxas_Impostos" class="form-check"
+                            style="margin-left: 20px; margin-top: 7px; margin-bottom: 7px;"> <input type="checkbox"
+                                name="Taxas_Impostos" class="checkboxinput form-check-input" id="id_Taxas_Impostos">
+                            <label for="id_Taxas_Impostos" class="form-check-label"
+                                style="font-family: 'Montserrat', sans-serif; font-weight: 600; color: #494949; margin-left: 10px;">
+                                Taxas/Impostos </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="border" style="border-radius: 10px;">
+                        <div id="div_id_Telefone" class="form-check"
+                            style="margin-left: 20px; margin-top: 7px; margin-bottom: 7px;"> <input type="checkbox"
+                                name="Telefone" class="checkboxinput form-check-input" id="id_Telefone">
+                            <label for="id_Telefone" class="form-check-label"
+                                style="font-family: 'Montserrat', sans-serif; font-weight: 600; color: #494949; margin-left: 10px;">
+                                Telefone </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="border" style="border-radius: 10px;">
+                        <div id="div_id_Internet" class="form-check"
+                            style="margin-left: 20px; margin-top: 7px; margin-bottom: 7px;"> <input type="checkbox"
+                                name="Internet" class="checkboxinput form-check-input" id="id_Internet">
+                            <label for="id_Internet" class="form-check-label"
+                                style="font-family: 'Montserrat', sans-serif; font-weight: 600; color: #494949; margin-left: 10px;">
+                                Internet </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="border" style="border-radius: 10px;">
+                        <div id="div_id_Agua" class="form-check"
+                            style="margin-left: 20px; margin-top: 7px; margin-bottom: 7px;"> <input type="checkbox"
+                                name="Agua" class="checkboxinput form-check-input" id="id_Agua">
+                            <label for="id_Agua" class="form-check-label"
+                                style="font-family: 'Montserrat', sans-serif; font-weight: 600; color: #494949; margin-left: 10px;">
+                                Água </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="border" style="border-radius: 10px;">
+                        <div id="div_id_Luz" class="form-check"
+                            style="margin-left: 20px; margin-top: 7px; margin-bottom: 7px;"> <input type="checkbox"
+                                name="Luz" class="checkboxinput form-check-input" id="id_Luz">
+                            <label for="id_Luz" class="form-check-label"
+                                style="font-family: 'Montserrat', sans-serif; font-weight: 600; color: #494949; margin-left: 10px;">
+                                Luz </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="border" style="border-radius: 10px;">
+                        <div id="div_id_Gas" class="form-check"
+                            style="margin-left: 20px; margin-top: 7px; margin-bottom: 7px;"> <input type="checkbox"
+                                name="Gas" class="checkboxinput form-check-input" id="id_Gas">
+                            <label for="id_Gas" class="form-check-label"
+                                style="font-family: 'Montserrat', sans-serif; font-weight: 600; color: #494949; margin-left: 10px;">
+                                Gás </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="border" style="border-radius: 10px;">
+                        <div id="div_id_Outro" class="form-check"
+                            style="margin-left: 20px; margin-top: 7px; margin-bottom: 7px;"> <input type="checkbox"
+                                name="Outro" class="checkboxinput form-check-input" id="id_Outro">
+                            <label for="id_Outro" class="form-check-label"
+                                style="font-family: 'Montserrat', sans-serif; font-weight: 600; color: #494949; margin-left: 10px;">
+                                Outro </label>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="cadastrar" type="submit" class="btn btn-primary btn-lg btn-block acoes"
+                    style="border: none; font-family: 'Poppins', sans-serif; font-weight: 600; border-radius: 10px; margin-top: 5%; padding: 4% 0 4% 0;">
+                    Próxima Etapa
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+{% endblock %}

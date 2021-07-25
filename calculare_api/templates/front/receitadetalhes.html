@@ -1,0 +1,449 @@
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <title>Calculare</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Parallax -->
+    <script src="https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js"></script>
+    <!-- semantic UI -->
+    <link rel="stylesheet" type='text/css'
+        href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+    <!--Chart js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+        integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"
+        integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+
+    <!-- using online links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+
+    <!-- using local links -->
+    <!-- <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"> -->
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar-theme.css' %}">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+
+    {% load pwa %}
+
+    {% progressive_web_app_meta %}
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+        *,
+        a {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        #lista, #voltar_btn {
+            background-color: #303F9F;
+            color: white;
+        }
+
+        #lista:hover, #voltar_btn:hover {
+            background-color: grey;
+        }
+
+        .acoes {
+            margin-top: 5%;
+            padding: 4%;
+            padding-left: 5%;
+            color: #494949;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        #voltar {
+            position: absolute;
+            left: 7%;
+            font-size: 25px;
+            color: black;
+            top: 5%;
+        }
+
+        td,
+        .fa.fa-trash {
+            font-size: 12px;
+        }
+
+        .fa.fa-trash {
+            color: red;
+        }
+
+        .main {
+            border-bottom: solid 2px #FF306E;
+        }
+
+        .borda-cinza {
+            border-bottom: solid 1px lightgrey;
+        }
+    </style>
+
+<body>
+    <a href="{% url 'home' %}" id="voltar"><i class="fas fa-arrow-left"></i></a>
+
+    <!-- <form method="GET">
+        {{ myFilter.form.Nome_da_Receita|as_crispy_field }}
+        <button type="submit">A</button>
+    </form>
+    /add_receita?Nome_da_Receita=1+-+Acomp. -->
+
+    <div class="row" style="padding-left: 10%; padding-right: 10%; padding-top: 20%;">
+        <h4>Meu negócio <i style="visibility: hidden;" class="fa fa-file">aaaaaaaaaaaaa</i></h4>
+        <h6>Minhas receitas</h6>
+        
+        <a href="/add_receita?categoria=Acompanhamentos" id="acompanhamento" class="btn btn-outline-secondary btn-lg btn-block acoes filtro">
+            <span class=" float-left" style="margin-top: -8px;">Acompanhamentos <span
+                    style="position: relative; bottom: -18px; left: -167px; font-size: 12px;">{{ acompanhamentos }}
+                    receita(s)</span></span>
+            <i class="fa fa-chevron-right float-right" style="margin-top: 1%;"></i>
+        </a>
+
+        <a href="/add_receita?categoria=Bolos" id="bolo" class="btn btn-outline-secondary btn-lg btn-block acoes filtro" style="margin-top: 5%;">
+            <span class=" float-left" style="margin-top: -8px;">Bolos <span
+                    style="position: relative; bottom: -18px; left: -47px; font-size: 12px;">{{ bolos }}
+                    receita(s)</span></span>
+            <i class="fa fa-chevron-right float-right" style="margin-top: 1%;"></i>
+        </a>
+
+        <a href="/add_receita?categoria=Bebidas" id="bebida" class="btn btn-outline-secondary btn-lg btn-block acoes" style="margin-top: 5%;">
+            <span class=" float-left" style="margin-top: -8px;">Bebibas <span
+                    style="position: relative; bottom: -18px; left: -68px; font-size: 12px;">{{ bebidas }}
+                    receita(s)</span></span>
+            <i class="fa fa-chevron-right float-right" style="margin-top: 1%;"></i>
+        </a>
+
+        <a href="/add_receita?categoria=Caldos+e+Molhos" id="caldos_molhos" class="btn btn-outline-secondary btn-lg btn-block acoes" style="margin-top: 5%;">
+            <span class=" float-left" style="margin-top: -8px;">Caldos e Molhos <span
+                    style="position: relative; bottom: -18px; left: -135px; font-size: 12px;">{{ caldos_molhos }}
+                    receita(s)</span></span>
+            <i class="fa fa-chevron-right float-right" style="margin-top: 1%;"></i>
+        </a>
+
+        <a href="/add_receita?categoria=Doces+e+Sobremesas" id="doces_sobremesas" class="btn btn-outline-secondary btn-lg btn-block acoes" style="margin-top: 5%;">
+            <span class=" float-left" style="margin-top: -8px;">Doces e Sobremesas <span
+                    style="position: relative; bottom: -18px; left: -173px; font-size: 12px;">{{ doces_sobremesas }}
+                    receita(s)</span></span>
+            <i class="fa fa-chevron-right float-right" style="margin-top: 1%;"></i>
+        </a>
+
+        <a href="/add_receita?categoria=Petisco" id="petisco" class="btn btn-outline-secondary btn-lg btn-block acoes" style="margin-top: 5%;">
+            <span class=" float-left" style="margin-top: -8px;">Petisco <span
+                    style="position: relative; bottom: -18px; left: -63px; font-size: 12px;">{{ petisco }}
+                    receita(s)</span></span>
+            <i class="fa fa-chevron-right float-right" style="margin-top: 1%;"></i>
+        </a>
+
+        <a href="/add_receita?categoria=Pratos" id="prato" class="btn btn-outline-secondary btn-lg btn-block acoes" style="margin-top: 5%;">
+            <span class=" float-left" style="margin-top: -8px;">Pratos <span
+                    style="position: relative; bottom: -18px; left: -57px; font-size: 12px;">{{ pratos }}
+                    receita(s)</span></span>
+            <i class="fa fa-chevron-right float-right" style="margin-top: 1%;"></i>
+        </a>
+
+        <a href="/add_receita?categoria=Salgados" id="salgado" class="btn btn-outline-secondary btn-lg btn-block acoes" style="margin-top: 5%;">
+            <span class=" float-left" style="margin-top: -8px;">Salgados <span
+                    style="position: relative; bottom: -18px; left: -79px; font-size: 12px;">{{ salgados }}
+                    receita(s)</span></span>
+            <i class="fa fa-chevron-right float-right" style="margin-top: 1%;"></i>
+        </a>
+
+        <a href="/add_receita?categoria=Outra+Categoria" id="outra" class="btn btn-outline-secondary btn-lg btn-block acoes" style="margin-top: 5%;">
+            <span class=" float-left" style="margin-top: -8px;">Outra Categoria <span
+                    style="position: relative; bottom: -18px; left: -135px; font-size: 12px;">{{ outra }}
+                    receita(s)</span></span>
+            <i class="fa fa-chevron-right float-right" style="margin-top: 1%;"></i>
+        </a>
+        {% for receita in receitas %}
+        <a href="/add_receita?id={{receita.id}}" onclick="console.log(this.innerHtml)" class="btn btn-outline-secondary btn-lg btn-block acoes d-none click" style="margin-top: 5%; padding: 3%;">
+            <span class=" float-left" style="margin-left: 2%;">{{ receita.Nome_da_Receita }}</span>
+            <i class="fa fa-chevron-down float-right" style="margin-top: 1%;"></i>
+        </a>
+        <div class="d-none tabela" style="border: solid 1px lightgray; padding: 5%; border-radius: 10px; margin-bottom: 20px; width: 100%; margin-top: 20px;">
+            <table style="width: 100%;">
+                <thead>
+                    <tr>
+                        <td class="main"><a href="/add_receita?id={{receita.id}}" style="font-size: 13px; color: black; text-decoration: none;">Receita</a></td>
+                        <td><a href="/detalhes_receita/{{receita.id}}?id={{receita.id}}" style="margin-left: -20px; font-size: 13px; color: black; text-decoration: none;">Detalhes</a></td>
+                        <td><a href="/materiais_receita/{{receita.id}}?id={{receita.id}}" style="margin-left: 5px; font-size: 13px; text-decoration: none; color: black;">Materiais</a></td>
+                        <td><a href="/lucro_receita/{{receita.id}}?id={{receita.id}}" style="font-size: 13px; text-decoration: none; color: black;">Lucro</a></td>
+                        <td><a href="delete_receita/{{ receita.id }}" class="float-right"
+                            style="color: red; font-size: 12px;"
+                            onclick="return confirm('Você quer mesmo deletar {{ receita.Nome_da_Receita }}?');">Excluir</a>
+                        </td>   
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="borda-cinza" style="padding-top: 10px;">Ingrediente</td>
+                        <td class="borda-cinza" style="padding-top: 10px;"></td>
+                        <td class="borda-cinza" style="padding-top: 10px;">Medidas</td>
+                        <td class="borda-cinza" style="padding-top: 10px;">Custo</td>
+                        <td class="borda-cinza" style="padding-top: 10px;">%</td>
+                    </tr>
+
+                    {% if receita.Ingrediente %}
+                    <tr>
+                        <td class="borda-cinza" style="padding-top: 10px;">{{ receita.Ingrediente }}</td>
+                        <td class="borda-cinza" style="padding-top: 10px;">
+                        </td>
+                        <td class="borda-cinza" style="padding-top: 10px;"><span id="quantidade_1" style="font-size: 12px;">{{ receita.Quantidade }}</span> {{ receita.Tipo }}
+                        </td>
+                        <td class="borda-cinza d-none" style="padding-top: 10px;">R$ <span id="unitario_1" style="font-size: 12px;">{{ receita.Ingrediente.Valor_Pago }}</span></td>
+                        <td class="borda-cinza" style="padding-top: 10px;" id="total_1"></td>
+                        <td class="borda-cinza" style="padding-top: 10px;" id="porc_1"></td>
+                    </tr>
+                    {% endif %}
+
+                    {% if receita.Ingrediente_2 %}
+                    <tr>
+                        <td class="borda-cinza" style="padding-top: 10px;">{{ receita.Ingrediente_2 }}</td>
+                        <td class="borda-cinza" style="padding-top: 10px;">
+                        </td>
+                        <td class="borda-cinza" style="padding-top: 10px;"><span id="quantidade_2" style="font-size: 12px;">{{ receita.Quantidade_2 }}</span> {{ receita.Tipo_2 }}
+                        </td>
+                        <td class="borda-cinza d-none" style="padding-top: 10px;">R$ <span id="unitario_2" style="font-size: 12px;">{{ receita.Ingrediente_2.Valor_Pago }}</span></td>
+                        <td class="borda-cinza" style="padding-top: 10px;" id="total_2"></td>
+                        <td class="borda-cinza" style="padding-top: 10px;" id="porc_2"></td>
+                    </tr>
+                    {% endif %}
+
+                    {% if receita.Ingrediente_3 %}
+                    <tr>
+                        <td class="borda-cinza" style="padding-top: 10px;">{{ receita.Ingrediente_3 }}</td>
+                        <td class="borda-cinza" style="padding-top: 10px;">
+                        </td>
+                        <td class="borda-cinza" style="padding-top: 10px;"><span id="quantidade_3" style="font-size: 12px;">{{ receita.Quantidade_3 }}</span> {{ receita.Tipo_3 }}
+                        </td>
+                        <td class="borda-cinza d-none" style="padding-top: 10px;">R$ <span id="unitario_3" style="font-size: 12px;">{{ receita.Ingrediente_3.Valor_Pago }}</span></td>
+                        <td class="borda-cinza" style="padding-top: 10px;" id="total_3"></td>
+                        <td class="borda-cinza" style="padding-top: 10px;" id="porc_3"></td>
+                    </tr>
+                    {% endif %}
+
+                    {% if receita.Ingrediente_4 %}
+                    <tr>
+                        <td class="borda-cinza" style="padding-top: 10px;">{{ receita.Ingrediente_4 }}</td>
+                        <td class="borda-cinza" style="padding-top: 10px;">
+                        </td>
+                        <td class="borda-cinza" style="padding-top: 10px;"><span id="quantidade_4" style="font-size: 12px;">{{ receita.Quantidade_4 }}</span> {{ receita.Tipo_4 }}
+                        </td>
+                        <td class="borda-cinza d-none" style="padding-top: 10px;">R$ <span id="unitario_4" style="font-size: 12px;">{{ receita.Ingrediente_4.Valor_Pago }}</span></td>
+                        <td class="borda-cinza" style="padding-top: 10px;" id="total_4"></td>
+                        <td class="borda-cinza" style="padding-top: 10px;" id="porc_4"></td>
+                    </tr>
+                    {% endif %}
+
+                    {% if receita.Ingrediente_5 %}
+                    <tr>
+                        <td class="borda-cinza" style="padding-top: 10px;">{{ receita.Ingrediente_5 }}</td>
+                        <td class="borda-cinza" style="padding-top: 10px;">
+                        </td>
+                        <td class="borda-cinza" style="padding-top: 10px;"><span id="quantidade_5" style="font-size: 12px;">{{ receita.Quantidade_5 }}</span> {{ receita.Tipo_5 }}
+                        </td>
+                        <td class="borda-cinza d-none" style="padding-top: 10px;">R$ <span id="unitario_5" style="font-size: 12px;">{{ receita.Ingrediente_5.Valor_Pago }}</span></td>
+                        <td class="borda-cinza" style="padding-top: 10px;" id="total_5"></td>
+                        <td class="borda-cinza" style="padding-top: 10px;" id="porc_5"></td>
+                    </tr>
+                    {% endif %}
+
+                    {% if receita.Ingrediente_6 %}
+                    <tr>
+                        <td class="borda-cinza" style="padding-top: 10px;">{{ receita.Ingrediente_6 }}</td>
+                        <td class="borda-cinza" style="padding-top: 10px;">
+                        </td>
+                        <td class="borda-cinza" style="padding-top: 10px;"><span id="quantidade_6" style="font-size: 12px;">{{ receita.Quantidade_6 }}</span> {{ receita.Tipo_6 }}
+                        </td>
+                        <td class="borda-cinza d-none" style="padding-top: 10px;">R$ <span id="unitario_6" style="font-size: 12px;">{{ receita.Ingrediente_6.Valor_Pago }}</span></td>
+                        <td class="borda-cinza" style="padding-top: 10px;" id="total_6"></td>
+                        <td class="borda-cinza" style="padding-top: 10px;" id="porc_6"></td>
+                    </tr>
+                    {% endif %}
+
+                    {% if receita.Ingrediente_7 %}
+                    <tr>
+                        <td class="borda-cinza" style="padding-top: 10px;">{{ receita.Ingrediente_7 }}</td>
+                        <td class="borda-cinza" style="padding-top: 10px;">
+                        </td>
+                        <td class="borda-cinza" style="padding-top: 10px;"><span id="quantidade_7" style="font-size: 12px;">{{ receita.Quantidade_7 }}</span> {{ receita.Tipo_7 }}
+                        </td>
+                        <td class="borda-cinza d-none" style="padding-top: 10px;">R$ <span id="unitario_7" style="font-size: 12px;">{{ receita.Ingrediente_7.Valor_Pago }}</span></td>
+                        <td class="borda-cinza" style="padding-top: 10px;" id="total_7"></td>
+                        <td class="borda-cinza" style="padding-top: 10px;" id="porc_7"></td>
+                    </tr>
+                    {% endif %}
+
+                    {% if receita.Ingrediente_8 %}
+                    <tr>
+                        <td class="borda-cinza" style="padding-top: 10px;">{{ receita.Ingrediente_8 }}</td>
+                        <td class="borda-cinza" style="padding-top: 10px;">
+                        </td>
+                        <td class="borda-cinza" style="padding-top: 10px;"><span id="quantidade_8" style="font-size: 12px;">{{ receita.Quantidade_8 }}</span> {{ receita.Tipo_8 }}
+                        </td>
+                        <td class="borda-cinza d-none" style="padding-top: 10px;">R$ <span id="unitario_8" style="font-size: 12px;">{{ receita.Ingrediente_8.Valor_Pago }}</span></td>
+                        <td class="borda-cinza" style="padding-top: 10px;" id="total_8"></td>
+                        <td class="borda-cinza" style="padding-top: 10px;" id="porc_8"></td>
+                    </tr>
+                    {% endif %}
+
+                    {% if receita.Ingrediente_9 %}
+                    <tr>
+                        <td class="borda-cinza" style="padding-top: 10px;">{{ receita.Ingrediente_9 }}</td>
+                        <td class="borda-cinza" style="padding-top: 10px;">
+                        </td>
+                        <td class="borda-cinza" style="padding-top: 10px;"><span id="quantidade_9" style="font-size: 12px;">{{ receita.Quantidade_9 }}</span> {{ receita.Tipo_9 }}
+                        </td>
+                        <td class="borda-cinza d-none" style="padding-top: 10px;">R$ <span id="unitario_9" style="font-size: 12px;">{{ receita.Ingrediente_9.Valor_Pago }}</span></td>
+                        <td class="borda-cinza" style="padding-top: 10px;" id="total_9"></td>
+                        <td class="borda-cinza" style="padding-top: 10px;" id="porc_9"></td>
+                    </tr>
+                    {% endif %}
+
+                    {% if receita.Ingrediente_10 %}
+                    <tr>
+                        <td class="borda-cinza" style="padding-top: 10px;">{{ receita.Ingrediente_10 }}</td>
+                        <td class="borda-cinza" style="padding-top: 10px;">
+                        </td>
+                        <td class="borda-cinza" style="padding-top: 10px;"><span id="quantidade_10" style="font-size: 12px;">{{ receita.Quantidade_10 }}</span> {{ receita.Tipo_10 }}
+                        </td>
+                        <td class="borda-cinza d-none" style="padding-top: 10px;">R$ <span id="unitario_10" style="font-size: 12px;">{{ receita.Ingrediente_10.Valor_Pago }}</span></td>
+                        <td class="borda-cinza" style="padding-top: 10px;" id="total_10"></td>
+                        <td class="borda-cinza" style="padding-top: 10px;" id="porc_10"></td>
+                    </tr>
+                    {% endif %}
+
+                </tbody>
+            </table>
+        </div>
+        {% endfor %}
+
+        <a href="" id="voltar_btn" class="btn btn-primary btn-lg btn-block d-none acoes"
+            style="border: none; font-family: 'Poppins', sans-serif; font-weight: 600; border-radius: 10px; width: 100%; padding: 4% 0 4% 0;">
+            Editar receita
+        </a>
+        <a href="{% url 'add_receita_dps' %}" id="lista" class="btn btn-primary btn-lg btn-block  acoes"
+            style="border: none; font-family: 'Poppins', sans-serif; font-weight: 600; border-radius: 10px; width: 100%; margin-top: 5%; padding: 4% 0 4% 0; margin-bottom: 5%;">
+            Adicionar receita
+        </a>
+    </div>
+</body>
+<script>
+    var url = window.location.href;
+
+    var response = url.substring(url.indexOf("?") + 1);
+
+    var id = url.substring(url.indexOf("=") + 1);
+
+    document.querySelector("#voltar_btn").href = '/edit_receita_dps/' + String(id)
+
+    if (response == "http://localhost:8000/add_receita" || response == "https://calculariapi.herokuapp.com/add_receita") {
+
+    } else {
+        document.querySelector("#voltar_btn").classList.remove("d-none")
+
+        var clicar_categoria = document.getElementsByClassName("click");
+        var tabelas = document.getElementsByClassName("tabela");
+
+        for (var i = 0; i < clicar_categoria.length; i++) {
+            clicar_categoria[i].classList.remove("d-none");
+        }
+
+        if (response.includes('id')) {
+            for (var i = 0; i < tabelas.length; i++) {
+                tabelas[i].classList.remove("d-none");
+            }
+        } else {
+        }
+
+        
+        
+        document.querySelector("#acompanhamento").classList.add("d-none")
+        document.querySelector("#bolo").classList.add("d-none")
+        document.querySelector("#bebida").classList.add("d-none")
+        document.querySelector("#caldos_molhos").classList.add("d-none")
+        document.querySelector("#doces_sobremesas").classList.add("d-none")
+        document.querySelector("#petisco").classList.add("d-none")
+        document.querySelector("#prato").classList.add("d-none")
+        document.querySelector("#salgado").classList.add("d-none")
+        document.querySelector("#outra").classList.add("d-none")
+    }
+    valores = []
+    try {
+        for (var i = 1; i < 11; i++) {
+            var unitario_ = "unitario_" + i
+            unitario_ = parseFloat(document.querySelector("#"+unitario_+"").innerHTML);
+            var quantidade_ = "quantidade_" + i 
+            var quantidade_ = parseInt(document.querySelector("#"+quantidade_+"").innerHTML);
+            var total_ = "total_" + i
+            val_total_ = "val_total_" + i
+            val_total_ = quantidade_ * unitario_;
+            document.querySelector("#"+total_+"").innerHTML = "R$ " + val_total_.toFixed(2);
+            valores.push(val_total_)
+        }
+    } catch {}
+
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+    try {
+        var total = valores.reduce(reducer).toFixed(0);
+    } catch {}
+    
+    try {
+        var unitario = parseFloat(document.querySelector("#unitario").innerHTML);
+        var quantidade = parseInt(document.querySelector("#quantidade").innerHTML);
+        val_total = quantidade * unitario;
+        val_porc = ((val_total / total) * 100).toFixed(0)
+        document.querySelector("#porc").innerHTML = val_porc + " %";
+    }
+    catch {}
+
+    try {
+        for (var i = 1; i < 11; i++) {
+            var unitario_ = "unitario_" + i
+            unitario_ = parseFloat(document.querySelector("#"+unitario_+"").innerHTML);
+            var quantidade_ = "quantidade_" + i 
+            var quantidade_ = parseInt(document.querySelector("#"+quantidade_+"").innerHTML);
+            var total_ = "total_" + i
+            val_total_ = "val_total_" + i
+            val_total_ = quantidade_ * unitario_;
+            var porc_ = "porc_" + i
+            val_porc = ((val_total_ / total) * 100).toFixed(0)
+            document.querySelector("#"+porc_+"").innerHTML = val_porc + " %";
+        }
+    } catch {}
+
+</script>
+{% endblock %}

@@ -1,0 +1,173 @@
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <title>Calculare</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Parallax -->
+    <script src="https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js"></script>
+    <!-- semantic UI -->
+    <link rel="stylesheet" type='text/css'
+        href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+    <!--Chart js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+        integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"
+        integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+
+    <!-- using online links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+
+    <!-- using local links -->
+    <!-- <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"> -->
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar-theme.css' %}">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+
+    {% load pwa %}
+
+    {% progressive_web_app_meta %}
+
+</head>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+    * {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+    }
+
+    .acoes {
+        margin-top: 5%;
+        padding: 3%;
+        padding-left: 5%;
+        color: #494949;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+    }
+
+    .acoes:hover {
+        background-color: #303F9F;
+    }
+
+    #voltar {
+        position: absolute;
+        left: 5%;
+        font-size: 25px;
+        color: black;
+        top: 5%;
+    }
+
+    #add,
+    #detalhes,
+    #revisar {
+        background-color: #FF306E;
+        color: white;
+    }
+
+    #add:hover,
+    #detalhes:hover,
+    #revisar:hover {
+        background-color: grey;
+    }
+
+    #letra, #resetar {
+        background-color: #FF306E;
+        color: white;
+    }
+
+    #letra:hover, #resetar:hover {
+        background-color: #303F9F;
+    }
+</style>
+
+<body>
+    <a href="{% url 'home' %}" id="voltar"><i class="fas fa-arrow-left"></i></a>
+
+    <div class="row" style="padding-left: 5%; padding-right: 5%; padding-top: 20%;">
+        <div class="col-md-12">
+            <h4>Meus ingredientes</h4>
+
+            <form method="GET" style="padding-top: 5%;">
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-9">
+                            <input type="text" onchange="document.querySelector('#letra').value = this.value" placeholder="Insira uma letra para filtrar" class="form-control">
+                        </div>
+                        <div class="col-1" style="margin-left: 1%;">
+                            <button id="letra" name="letra" type="submit" class="btn btn-primary"
+                                style="border: none; font-family: 'Poppins', sans-serif; font-weight: 600;">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                        <div class="col-1" style="margin-left: 4%;">
+                            <a id="resetar" href="/meusingredientes" class="btn btn-primary"
+                                style="border: none; font-family: 'Poppins', sans-serif; font-weight: 600;">
+                                <i class="fa fa-sync-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            {% for ingrediente in ingredientes %} 
+                
+            <button {% if ingrediente.Valor_Pago %} style="background-color: green;" {% endif %} type="button" onclick="document.querySelector('#abrir_{{ ingrediente.id }}').classList.toggle('d-none')"  class="btn btn-outline-secondary btn-lg btn-block acoes">
+                <span class=" float-left">{{ ingrediente.Entrada_Ingrediente }}</span>
+                <i class="fa fa-chevron-down float-right" style="margin-top: 1%;"></i>
+            </button>
+            <div class="form-row d-none" id="abrir_{{ ingrediente.id }}">
+                <div class="col-4">
+                    <a href="/meusingredientes3?Ingrediente={{ ingrediente.id }}" id="add" class="btn btn-primary btn-lg btn-block  acoes"
+                        style="border: none; font-family: 'Poppins', sans-serif; font-weight: 600; border-radius: 10px;padding: 4% 0 4% 0;">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                </div>
+                <div class="col-4">
+                    <a href="/meusingredientes2?Ingrediente={{ ingrediente.id }}" id="detalhes" class="btn btn-primary btn-lg btn-block  acoes"
+                        style="border: none; font-family: 'Poppins', sans-serif; font-weight: 600; border-radius: 10px;padding: 4% 0 4% 0;">
+                        <i class="fa fa-search-dollar"></i>
+                    </a>
+                </div>
+                <div class="col-4">
+                    <a href="/meusingredientesdetalhes/{{ ingrediente.id }}" id="revisar" 
+                        class="btn btn-primary btn-lg btn-block  acoes"
+                        style="border: none; font-family: 'Poppins', sans-serif; font-weight: 600; border-radius: 10px;padding: 4% 0 4% 0;">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+{% endblock %}

@@ -1,0 +1,215 @@
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description"
+            content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+        <title>Calculare</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+            integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!-- Parallax -->
+        <script src="https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js"></script>
+        <!-- semantic UI -->
+        <link rel="stylesheet" type='text/css'
+            href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+        <!--Chart js-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+            integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"
+            integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+
+        <!-- using online links -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+            integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+            integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+        <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+
+        <!-- using local links -->
+        <!-- <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+        <link rel="stylesheet" href="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"> -->
+
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" href="{% static 'css/sidebar-theme.css' %}">
+        <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+
+        <script type="text/javascript" src="{% static 'js/jquery.mask.min.js' %}"></script>
+
+        {% load pwa %}
+
+        {% progressive_web_app_meta %}
+    </head>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+    .btn-cinza {
+        background-color: white;
+        color: #494949;
+        border: solid 1px #494949;
+        border-radius: 20px;
+    }
+
+    .btn-rosa {
+        background-color: #FF306E;
+        color: white;
+        border-radius: 20px;
+    }
+
+    .btn-roxo {
+        background-color: #303F9F;
+        color: white;
+    }
+
+    .btn-roxo:hover {
+        background-color: #494949;
+        color: white;
+    }
+
+    .x {
+        background-color: #FF306E;
+        color: white;
+        border-radius: 20px;
+    }
+
+    #voltar-seta {
+        position: absolute;
+        left: 5%;
+        font-size: 25px;
+        color: black;
+        top: 5%;
+    }
+
+    #letra {
+        background-color: #FF306E;
+        color: white;
+    }
+
+    #letra:hover {
+        background-color: #303F9F;
+    }
+
+    #prox, #salvar, #voltar {
+        background-color: #303F9F;
+        color: white;
+        font-family: 'Poppins', sans-serif; font-weight: 600;
+        padding: 4% 0 4% 0;
+        border-radius: 10px;
+        border: none;
+    }
+
+    #prox:hover, #salvar:hover, #voltar:hover{
+        background-color: grey;
+    }
+    
+</style>
+
+<body>
+    <a href="{% url 'home' %}" id="voltar-seta"><i class="fas fa-arrow-left"></i></a>
+
+    <div class="row" style="padding-left: 5%; padding-right: 5%; padding-top: 20%;">
+        <div class="col-md-12">
+            <h4>Minha Lista de Compras <span class="float-right" style="font-size: 12px; margin-top: 2%; margin-right: 4%; font-family: 'Poppins', sans-serif; font-weight: 600;">Ingrediente 7-10</span></h4>
+            <h6 style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 12.5px;">Escolhendo o(s) ingrediente(s)</h6>
+
+            <form method="GET" style="padding-top: 5%;">
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-10">
+                            <input type="text" onchange="document.querySelector('#letra').value = this.value" placeholder="Insira uma letra e clique no botão para filtrar" class="form-control">
+                        </div>
+                        <div class="col-2">
+                            <button id="letra" name="letra" type="submit" class="btn btn-primary"
+                                style="border: none; font-family: 'Poppins', sans-serif; font-weight: 600;">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="form-group d-none">
+                    {{ form.Ingrediente|as_crispy_field }}
+                </div>
+                <div class="form-group d-none">
+                    {{ form.Ingrediente_2|as_crispy_field }}
+                </div>
+                <div class="form-group d-none">
+                    {{ form.Ingrediente_3|as_crispy_field }}
+                </div>
+                <div class="form-group d-none">
+                    {{ form.Ingrediente_4|as_crispy_field }}
+                </div>
+                <div class="form-group d-none">
+                    {{ form.Ingrediente_5|as_crispy_field }}
+                </div>
+                <div class="form-group d-none">
+                    {{ form.Ingrediente_6|as_crispy_field }}
+                </div>
+                <div class="form-group">
+                    {{ form.Ingrediente_7|as_crispy_field }}
+                </div>
+                <div class="form-group d-none">
+                    {{ form.Ingrediente_8|as_crispy_field }}
+                </div>
+                <div class="form-group d-none">
+                    {{ form.Ingrediente_9|as_crispy_field }}
+                </div>
+                <div class="form-group d-none">
+                    {{ form.Ingrediente_10|as_crispy_field }}
+                </div>
+                
+                {% for ingrediente in ingredientes %}
+                <button style="margin: 2% 1%;" onclick='
+                        document.querySelector("#times_{{ ingrediente.id }}").classList.remove("d-none")
+                        document.querySelector("#clicar_{{ ingrediente.id }}").classList.add("d-none")
+                        document.querySelector("#id_Ingrediente_7").value = document.querySelector("#clicar_{{ ingrediente.id }}").value;
+                    ' type="button" id="clicar_{{ ingrediente.id }}" value="{{ ingrediente.id }}"
+                    class="btn btn-cinza"><i class="fa fa-plus" style="color: lightgray;"></i> {{ ingrediente.Entrada_Ingrediente }}</button>
+                <button type="button" onclick='
+                    document.querySelector("#times_{{ ingrediente.id }}").classList.add("d-none")
+                    document.querySelector("#clicar_{{ ingrediente.id }}").classList.remove("btn-rosa")
+                    document.querySelector("#clicar_{{ ingrediente.id }}").classList.remove("d-none")
+                    document.querySelector("#id_Ingrediente_7").value = ""
+                    ' class="btn btn-grey d-none x" id="times_{{ ingrediente.id }}"><i
+                        class="fa fa-times"></i> {{ ingrediente.Entrada_Ingrediente }}</button>
+                {% endfor %}
+                <div>
+                    <br>
+                    <button id="voltar" type="submit" onclick="document.querySelector('#voltar').value = 'Sim'" value=""
+                        name="voltar" class="btn btn-primary btn-lg btn-block">Voltar</button>
+                    <button id="prox" type="submit" onclick="document.querySelector('#prox').value = 'Sim'" value="" name="prox" class="btn btn-primary btn-lg btn-block">Adicionar próximo ingrediente</button>
+                    <button id="salvar" type="submit" onclick="document.querySelector('#salvar').value = 'Sim'" value="" name="salvar" class="btn btn-primary btn-lg btn-block">Ver lista de compras</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+<script>
+</script>
+{% endblock %}

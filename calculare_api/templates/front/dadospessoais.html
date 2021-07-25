@@ -1,0 +1,130 @@
+{% load crispy_forms_tags %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <title>Calculare</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Parallax -->
+    <script src="https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js"></script>
+    <!-- semantic UI -->
+    <link rel="stylesheet" type='text/css'
+        href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+    <!--Chart js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+        integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"
+        integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+
+    <!-- using online links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+
+    <!-- using local links -->
+    <!-- <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"> -->
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar-theme.css' %}">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+
+    {% load pwa %}
+
+    {% progressive_web_app_meta %}
+
+</head>
+
+<style>
+    #avatar {
+        position: absolute;
+        left: 5.2%;
+        top: 16.5%;
+    }
+
+    #photo {
+        background-color: #303F9F;
+        color: white;
+        padding: 1% 2% 1% 2%;
+        border-radius: 50px;
+        position: absolute;
+        left: 23%;
+        top: 26.5%;
+    }
+</style>
+
+<body>
+    <div>
+        <a href="{% url 'configuracoes' %}"><img src="{% static 'img/dadospessoais.png' %}" style="width: 100%;"
+                alt="My image"></a>
+        <img id="avatar" src="{{ avatar.avatar }}" alt="" width="90px" height="90px" class="rounded-circle">
+        <div class="col-md-4 offset-md-4" style="margin-top: 0%;">
+            <div class="card auth-card" style="padding: 5%; background-color: white; border: none;">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+
+                    <div style="display: block; width: 100px; height: 20px; overflow: hidden;">
+                        <button id="photo" style="padding: 1% 2% 1% 2%; position: absolute; top: -6%; left: 20%;"><a
+                                href="javascript: void(0)"><i class="fa fa-camera" style="color: white;"></i></a></button>
+                        <input type="file" id="id_avatar" name="avatar" accept="image/*"
+                            style="font-size: 50px; width: 120px; opacity: 0; filter:alpha(opacity=0);  position: absolute; top: -6%; left: 20%;" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg btn-block"
+                        style="margin-top: 40%; border: none; font-family: 'Poppins', sans-serif; font-weight: 600; border-radius: 10px; margin-bottom: 5%; background-color: grey;">Salvar
+                        dados pessoais</button>
+
+                    <a href="/password_change" id="login" type="submit" class="btn btn-primary btn-lg btn-block"
+                        style="border: none; font-family: 'Poppins', sans-serif; font-weight: 600; border-radius: 10px; margin-bottom: 5%; background-color: #303F9F;">Alterar
+                        senha</a>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    document.querySelector("#id_avatar").click()
+    document.querySelector("#div_id_username > label").innerHTML = '<strong>Nome</strong>'
+    document.querySelector("#div_id_email > label").innerHTML = '<strong>E-mail</strong>'
+    document.querySelector("#div_id_avatar").classList.add('d-none')
+    document.querySelector("#hint_id_username").classList.add('d-none')
+    document.querySelector("#div_id_password").classList.add('d-none')
+    document.querySelector("#div_id_last_login").classList.add('d-none')
+    document.querySelector("#div_id_groups").classList.add('d-none')
+    document.querySelector("#div_id_date_joined").classList.add('d-none')
+    // document.querySelector("#div_id_username").classList.add('d-none')
+    document.querySelector("#div_id_first_name").classList.add('d-none')
+    document.querySelector("#div_id_last_name").classList.add('d-none')
+    // document.querySelector("#div_id_email").classList.add('d-none')
+    document.querySelector("#div_id_is_staff").classList.add('d-none')
+    document.querySelector("#div_id_is_active").classList.add('d-none')
+    document.querySelector("#div_id_is_superuser").classList.add('d-none')
+    document.querySelector("#div_id_user_permissions").classList.add('d-none')
+</script>
+{% endblock %}

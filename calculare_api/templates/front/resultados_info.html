@@ -1,0 +1,208 @@
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <title>Calculare</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Parallax -->
+    <script src="https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js"></script>
+    <!-- semantic UI -->
+    <link rel="stylesheet" type='text/css'
+        href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+    <!--Chart js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+        integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"
+        integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+
+    <!-- using online links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+
+    <!-- using local links -->
+    <!-- <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+        <link rel="stylesheet" href="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"> -->
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar-theme.css' %}">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+
+    <script type="text/javascript" src="{% static 'js/jquery.mask.min.js' %}"></script>
+
+    {% load pwa %}
+
+    {% progressive_web_app_meta %}
+</head>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+    *,
+    a {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    #voltar {
+        position: absolute;
+        left: 7%;
+        font-size: 25px;
+        color: black;
+        top: 5%;
+    }
+
+    #cadastrar {
+        background-color: #303F9F;
+        color: white;
+    }
+
+    #cadastrar:hover {
+        background-color: grey;
+    }
+
+    .card {
+        background-color: #D3D6E9;
+    }
+
+    .light {
+        background-color: #FBFBFB;
+    }
+
+    .medium {
+        background-color: #EFEFEF;
+    }
+
+    .fa-circle {
+        font-size: 8px;
+        padding-right: 5%;
+    }
+
+    .purple {
+        color: #303F9F;
+    }
+
+    .yellow {
+        color: #FF9330;
+    }
+
+    .green-blue {
+        color: #0097A7;
+    }
+
+    .red {
+        color: #D83434;
+    }
+
+    .green {
+        color: #05BA4E;
+    }
+
+    .grey {
+        color: grey;
+    }
+
+    .font-10 {
+        font-size: 10px;
+        font-weight: bold;
+    }
+
+    .font-13 {
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .card {
+        border-color: #E2E2E2;
+    }
+
+    p {
+        text-align: justify;
+    }
+
+    .col-12 {
+        margin-top: 18px;
+    }
+</style>
+
+<body>
+    <a href="{% url 'resultados' %}" id="voltar"><i class="fas fa-arrow-left"></i></a>
+    <div class="row" style="padding-left: 10%; padding-right: 10%; padding-top: 20%;">
+        <div class="col-12" style="margin-top: 0px;">
+            <h5 style="color: #494949;">Informações</h5>
+        </div>
+        <div class="col-12" style="margin-top: 5px;">
+            <i class="fa fa-circle purple"></i> <span class="font-13" style="margin-left: -14px;">Vendas</span>
+            <p style="font-size: 12px; color: grey; margin-top: 2px; margin-left: 14px;">
+                É o valor que você recebe ao vender os seus produtos.
+            </p>
+        </div>
+        <div class="col-12">
+            <i class="fa fa-circle yellow"></i> <span class="font-13" style="margin-left: -14px;">Custo do produto</span>
+            <p style="font-size: 12px; color: grey; margin-top: 2px; margin-left: 14px;">
+                É o quanto custa para fazer os produtos que você vende.
+            </p>
+        </div>
+        <div class="col-12">
+            <i class="fa fa-circle green-blue"></i> <span class="font-13" style="margin-left: -14px;">Lucro bruto</span>
+            <p style="font-size: 12px; color: grey; margin-top: 2px; margin-left: 14px;">
+                É o quanto sobrado valor da venda depois que você paga os custos do produto.
+            </p>
+        </div>
+        <div class="col-12">
+            <i class="fa fa-circle red"></i> <span class="font-13" style="margin-left: -14px;">Despesas do negócio</span>
+            <p style="font-size: 12px; color: grey; margin-top: 2px; margin-left: 14px;">
+                São os valores que não são gastos diretamente na produção dos seus produtos, mas que são necessários para fazer seu negócio rodar.
+            </p>
+        </div>
+        <div class="col-12">
+            <i class="fa fa-circle green"></i> <span class="font-13" style="margin-left: -14px;">Lucro líquido</span>
+            <p style="font-size: 12px; color: grey; margin-top: 2px; margin-left: 14px;">
+                É o lucro do negócio.
+            </p>
+        </div>
+        <div class="col-12">
+            <i class="fa fa-circle green"></i> <span class="font-13" style="margin-left: -14px;">Pró-labore</span>
+            <p style="font-size: 12px; color: grey; margin-top: 2px; margin-left: 14px;">
+                É o salário fixo dos sócios.
+            </p>
+        </div>
+        <div class="col-12">
+            <i class="fa fa-circle green"></i> <span class="font-13" style="margin-left: -14px;">Ganhos do mês</span>
+            <p style="font-size: 12px; color: grey; margin-top: 2px; margin-left: 14px;">
+                É o valor que sobra para os sócios no fim do mês.
+            </p>
+        </div>
+    </div>
+</body>
+
+<script>
+
+</script>
+{% endblock %}

@@ -1,0 +1,1 @@
+web: gunicorn calculare.wsgi

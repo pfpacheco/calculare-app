@@ -1,0 +1,220 @@
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <title>Calculare</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Parallax -->
+    <script src="https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js"></script>
+    <!-- semantic UI -->
+    <link rel="stylesheet" type='text/css'
+        href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+    <!--Chart js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+        integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"
+        integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+
+    <!-- using online links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+
+    <!-- using local links -->
+    <!-- <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"> -->
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar-theme.css' %}">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+
+    {% load pwa %}
+
+    {% progressive_web_app_meta %}
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+        *,
+        a {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        #lista {
+            background-color: #303F9F;
+            color: white;
+        }
+
+        #lista:hover {
+            background-color: grey;
+        }
+
+        .acoes {
+            margin-top: 5%;
+            padding: 3%;
+            padding-left: 5%;
+            color: #494949;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        #voltar {
+            position: absolute;
+            left: 7%;
+            font-size: 25px;
+            color: black;
+            top: 5%;
+        }
+
+        td,
+        .fa.fa-trash {
+            font-size: 12px;
+        }
+
+        .fa.fa-trash {
+            color: red;
+        }
+
+        .main {
+            border-bottom: solid 2px #FF306E;
+        }
+
+        .borda-cinza {
+            border-bottom: solid 1px lightgrey;
+        }
+    </style>
+
+<body>
+    <a href="{% url 'home' %}" id="voltar"><i class="fas fa-arrow-left"></i></a>
+
+    <div class="row" style="padding-left: 10%; padding-right: 10%; padding-top: 20%;">
+        <h4>Meu negócio <i style="visibility: hidden;" class="fa fa-file">aaaaaaaaaaaaaaaaaaaa1</i></h4>
+        <h6>Outras despesas</h6>
+        {% for despesa in despesas %}
+        <div
+            style="border: solid 1px lightgray; padding: 5%; border-radius: 10px; margin-bottom: 20px; width: 100%; margin-top: 20px;">
+            <table style="width: 100%;">
+                <thead>
+
+                    <tr>
+                        <td class="main">
+                            <span>Despesas</span>
+                        </td>
+                        <td class="main"></td>
+                        <td class="main"><a href="delete_despesas/{{ despesa.id }}" class="float-right" style="color: red; font-size: 12px;"
+                            onclick="return confirm('Você quer mesmo deletar a(s) despesa(s)?');">Excluir</a></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% if despesa.Combustivel %}
+                    <tr>
+                        <td class="borda-cinza" style="padding-top: 10px;"><a href=""><i class="fa fa-trash"></i></a> Combustível</td>
+                        <td class="borda-cinza" style="padding-top: 10px;"></td>
+                        <td class="borda-cinza" style="padding-top: 10px;">R$ {{ despesa.Combustivel_Valor }}
+                            {{ despesa.Combustivel_Tipo }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if despesa.Divulgacao %}
+                    <tr>
+                        <td class="borda-cinza" style="padding-top: 10px;"><a href=""><i class="fa fa-trash"></i></a> Divulgação</td>
+                        <td class="borda-cinza" style="padding-top: 10px;"></td>
+                        <td class="borda-cinza" style="padding-top: 10px;">R$ {{ despesa.Divulgacao_Valor }}
+                            {{ despesa.Divulgacao_Tipo }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if despesa.Taxas_Impostos %}
+                    <tr>
+                        <td class="borda-cinza" style="padding-top: 10px;"><a href=""><i class="fa fa-trash"></i></a> Taxas/Impostos</td>
+                        <td class="borda-cinza" style="padding-top: 10px;"></td>
+                        <td class="borda-cinza" style="padding-top: 10px;">R$ {{ despesa.Impostos_Valor }}
+                            {{ despesa.Impostos_Tipo }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if despesa.Telefone %}
+                    <tr>
+                        <td class="borda-cinza" style="padding-top: 10px;"><a href=""><i class="fa fa-trash"></i></a> Telefone</td>
+                        <td class="borda-cinza" style="padding-top: 10px;"></td>
+                        <td class="borda-cinza" style="padding-top: 10px;">R$ {{ despesa.Telefone_Valor }}
+                            {{ despesa.Telefone_Tipo }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if despesa.Internet %}
+                    <tr>
+                        <td class="borda-cinza" style="padding-top: 10px;"><a href=""><i class="fa fa-trash"></i></a> Internet</td>
+                        <td class="borda-cinza" style="padding-top: 10px;"></td>
+                        <td class="borda-cinza" style="padding-top: 10px;">R$ {{ despesa.Internet_Valor }}
+                            {{ despesa.Internet_Tipo }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if despesa.Agua %}
+                    <tr>
+                        <td class="borda-cinza" style="padding-top: 10px;"><a href=""><i class="fa fa-trash"></i></a> Água</td>
+                        <td class="borda-cinza" style="padding-top: 10px;"></td>
+                        <td class="borda-cinza" style="padding-top: 10px;">R$ {{ despesa.Agua_Valor }}
+                            {{ despesa.Agua_Tipo }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if despesa.Luz %}
+                    <tr>
+                        <td class="borda-cinza" style="padding-top: 10px;"><a href=""><i class="fa fa-trash"></i></a> Luz</td>
+                        <td class="borda-cinza" style="padding-top: 10px;"></td>
+                        <td class="borda-cinza" style="padding-top: 10px;">R$ {{ despesa.Luz_Valor }}
+                            {{ despesa.Luz_Tipo }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if despesa.Gas %}
+                    <tr>
+                        <td class="borda-cinza" style="padding-top: 10px;"><a href=""><i class="fa fa-trash"></i></a> Gás</td>
+                        <td class="borda-cinza" style="padding-top: 10px;"></td>
+                        <td class="borda-cinza" style="padding-top: 10px;">R$ {{ despesa.Gas_Valor }}
+                            {{ despesa.Gas_Tipo }}</td>
+                    </tr>
+                    {% endif %}
+                    {% if despesa.Outro %}
+                    <tr>
+                        <td style="padding-top: 10px;"><a href=""><i class="fa fa-trash"></i></a> {{ despesa.Outro_Descricao }}</td>
+                        <td style="padding-top: 10px;"></td>
+                        <td style="padding-top: 10px;">R$ {{ despesa.Outro_Valor }}
+                            {{ despesa.Outro_Tipo }}</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <a href="edit_despesas/{{ despesa.id }}" id="lista" class="btn btn-primary btn-lg btn-block  acoes"
+            style="border: none; font-family: 'Poppins', sans-serif; font-weight: 600; border-radius: 10px; position: absolute; bottom: 5%; width: 85%; padding: 4% 0 4% 0;">
+            Editar despesa(s)
+        </a>
+    </div>
+    {% endfor %}
+    </div>
+</body>
+{% endblock %}

@@ -1,0 +1,414 @@
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <title>Calculare</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Parallax -->
+    <script src="https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js"></script>
+    <!-- semantic UI -->
+    <link rel="stylesheet" type='text/css'
+        href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+    <!--Chart js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+        integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"
+        integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+
+    <!-- using online links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+
+    <!-- using local links -->
+    <!-- <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+        <link rel="stylesheet" href="../node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"> -->
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar-theme.css' %}">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
+
+    <script type="text/javascript" src="{% static 'js/jquery.mask.min.js' %}"></script>
+
+    {% load pwa %}
+
+    {% progressive_web_app_meta %}
+</head>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+    *,
+    a {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    #voltar {
+        position: absolute;
+        left: 7%;
+        font-size: 25px;
+        color: black;
+        top: 5%;
+    }
+
+    #cadastrar {
+        background-color: #303F9F;
+        color: white;
+    }
+
+    #cadastrar:hover {
+        background-color: grey;
+    }
+
+    .card {
+        background-color: #D3D6E9;
+    }
+
+    .light {
+        background-color: #FBFBFB;
+    }
+
+    .medium {
+        background-color: #EFEFEF;
+    }
+
+    .fa-circle {
+        font-size: 10px;
+        padding-right: 5%;
+    }
+
+    .purple {
+        color: #303F9F;
+    }
+
+    .yellow {
+        color: #FF9330;
+    }
+
+    .green-blue {
+        color: #0097A7;
+    }
+
+    .red {
+        color: #D83434;
+    }
+
+    .green {
+        color: #05BA4E;
+    }
+
+    .grey {
+        color: grey;
+    }
+
+    .font-10 {
+        font-size: 10px;
+        font-weight: bold;
+    }
+
+    .font-13 {
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .card {
+        border-color: #E2E2E2;
+    }
+</style>
+
+<body>
+    <a href="{% url 'home' %}" id="voltar"><i class="fas fa-arrow-left"></i></a>
+    <div class="row" style="padding-left: 10%; padding-right: 10%; padding-top: 20%;">
+        <div class="col-12">
+            <h5 style="color: #494949;">Resultados <a href="{% url 'resultados_info' %}" class="float-right"><i
+                        class="fa fa-info-circle purple" style="font-size: 30px;"></i></a></h5>
+            <!-- <input type="text" name="filtro" placeholder="Pesquise por receita" maxlength="255"
+                class="textinput textInput form-control" id="filtro" style="margin-top: 8%;"> -->
+        </div>
+    </div>
+
+    <div class="row" style="padding-left: 3%; padding-right: 3%; padding-top: 5%;">
+        <div class="col-12">
+            <div class="card" style="width: 100%; border-radius: 20px 20px 0 0 ;">
+                <div class="card-body">
+                    <h5 class="card-title">Totais</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="padding-left: 3%; padding-right: 3%;">
+        <div class="col-12">
+            <div class="card light" style="width: 100%; border-radius: 0px;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <i class="fa fa-circle purple"></i><span class="font-10">Vendas</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="purple font-13">R$ {{Total_Vendas}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="font-10">100%</span>
+                        </div>
+                    </div>
+                    <div class="row"
+                        style="border-bottom: solid 2px #F1F1F1; width: 100%; margin-left: 1%; margin-top: 5%;"></div>
+                    <div class="row" style="margin-top: 5%;">
+                        <div class="col-6">
+                            <i class="fa fa-circle yellow"></i><span class="font-10">Custo dos produtos</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="yellow font-13">- R$ {{Total_Custo_Produtos}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="font-10">{{Porc_Custo_Produtos}}%</span>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 5%;">
+                        <div class="col-6">
+                            <span class="font-10 grey">Material</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="grey font-10">- R$ {{Material}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="font-10 grey">{{Porc_Material}}%</span>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 5%;">
+                        <div class="col-6">
+                            <span class="font-10 grey">Mão de obra</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="grey font-10">- R$ {{Total_Mao_de_Obra}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="font-10 grey">{{Porc_Mao_de_Obra}}%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="padding-left: 3%; padding-right: 3%;">
+        <div class="col-12">
+            <div class="card medium" style="width: 100%; border-radius: 0px;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <i class="fa fa-circle green-blue"></i><span class="font-10">Lucro bruto</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="green-blue font-13">R$ {{Total_Lucro}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="font-10">{{Porc_Lucro_Bruto}}%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="padding-left: 3%; padding-right: 3%;">
+        <div class="col-12">
+            <div class="card light" style="width: 100%; border-radius: 0px;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <i class="fa fa-circle red"></i><span class="font-10">Despesas do negócio</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="red font-13">- R$ {{Total_Despesas}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="font-10">{{Porc_Total_Despesas}}%</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <span class="font-10 grey">Entregas</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="grey font-10">- R$ {{Total_Entregas}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="font-10 grey">{{Porc_Entregas}}%</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <span class="font-10 grey">Combustível</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="grey font-10">- R$ {{Total_Combustivel}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="font-10 grey">{{Porc_Combustivel}}%</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <span class="font-10 grey">Divulgação</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="grey font-10">- R$ {{Total_Divulgacao}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="font-10 grey">{{Porc_Divulgacao}}%</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <span class="font-10 grey">Taxas/Impostos</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="grey font-10">- R$ {{Total_Taxas_Impostos}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="font-10 grey">{{Porc_Taxas_Impostos}}%</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <span class="font-10 grey">Telefone</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="grey font-10">- R$ {{Total_Telefone}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="font-10 grey">{{Porc_Telefone}}%</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <span class="font-10 grey">Internet</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="grey font-10">- R$ {{Total_Internet}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="font-10 grey">{{Porc_Internet}}%</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <span class="font-10 grey">Água</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="grey font-10">- R$ {{Total_Agua}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="font-10 grey">{{Porc_Agua}}%</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <span class="font-10 grey">Luz</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="grey font-10">- R$ {{Total_Luz}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="font-10 grey">{{Porc_Luz}}%</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <span class="font-10 grey">Gás</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="grey font-10">- R$ {{Total_Gas}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="font-10 grey">{{Porc_Gas}}%</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <span class="font-10 grey">Outros</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="grey font-10">- R$ {{Total_Outro}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="font-10 grey">{{Porc_Outro}}%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-left: 3%; padding-right: 3%; padding-bottom: 6%;">
+        <div class="col-12">
+            <div class="card medium" style="width: 100%; border-radius: 0 0 20px 20px;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <i class="fa fa-circle green"></i><span class="font-10">Lucro líquido</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="green font-13">R$ {{Lucro_Liquido}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="font-10">{{Porc_Lucro_Liquido}}%</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <i class="fa fa-circle green"></i><span class="font-10">Pró-labore</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="green font-13">R$ {{Salario_Fixo}}</span>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-6">
+                            <i class="fa fa-circle green"></i><span class="font-10">Ganhos do mês</span>
+                        </div>
+                        <div class="col-4">
+                            <span class="green font-13">R$ {{Ganho_Mes}}</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="font-10">{{Porc_Ganho_Mes}}%</span>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+</script>
+{% endblock %}

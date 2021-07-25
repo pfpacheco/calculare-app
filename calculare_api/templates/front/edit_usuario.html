@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% endblock %}
+
+{% load static %}
+{% block content %}
+<div class="row" style="padding-left: 20%; padding-top: 0%;">
+    <div class="col-md-9">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <a href="/home" class="btn btn-success"><i class="fa fa-arrow-left"></i> Voltar</a>
+        </form>
+    </div>
+</div>
+
+<script>
+    // document.querySelector("#div_id_password").classList.add('d-none')
+    document.querySelector("#div_id_last_login").classList.add('d-none')
+    document.querySelector("#div_id_groups").classList.add('d-none')
+    document.querySelector("#div_id_date_joined").classList.add('d-none')
+    document.querySelector("#div_id_username").classList.add('d-none')
+    // document.querySelector("#div_id_first_name").classList.add('d-none')
+    // document.querySelector("#div_id_last_name").classList.add('d-none')
+    // document.querySelector("#div_id_email").classList.add('d-none')
+    document.querySelector("#div_id_is_staff").classList.add('d-none')
+    document.querySelector("#div_id_is_active").classList.add('d-none')
+    document.querySelector("#div_id_is_superuser").classList.add('d-none')
+    document.querySelector("#id_user_permissions").classList.add('d-none')
+</script>
+{% endblock %}
+

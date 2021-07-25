@@ -1,2 +1,4 @@
 .idea
 .venv_396
+
+*.pyc

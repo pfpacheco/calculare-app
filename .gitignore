@@ -41,7 +41,4 @@ Thumbs.db
 *.wmv
 
 # PyCache files
-calculare/__pycache__
-calculare_api/__pycache__
-users/__pycache__
-users/migrations/__pycache__
+__

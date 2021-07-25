@@ -41,4 +41,4 @@ Thumbs.db
 *.wmv
 
 # PyCache files
-__
+*/__pycache__/*
